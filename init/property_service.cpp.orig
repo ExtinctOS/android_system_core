@@ -74,6 +74,7 @@
 #include "subcontext.h"
 #include "system/core/init/property_service.pb.h"
 #include "util.h"
+#include "vendor_init.h"
 
 static constexpr char APPCOMPAT_OVERRIDE_PROP_FOLDERNAME[] =
         "/dev/__properties__/appcompat_override";
@@ -1241,15 +1242,12 @@ void PropertyLoadBootDefaults() {
         }
     }
 
-<<<<<<< HEAD
-=======
     // Weaken property override security during execution of the vendor init extension
     weaken_prop_override_security = true;
 
     // Update with vendor-specific property runtime overrides
     vendor_load_properties();
 
->>>>>>> 6aea1eaa12 (init: Weaken property override security for the init extension)
     property_initialize_ro_product_props();
     property_initialize_build_id();
     property_derive_build_fingerprint();
@@ -1418,6 +1416,30 @@ static void ProcessBootconfig() {
     });
 }
 
+<<<<<<< HEAD
+=======
+static void SetSafetyNetProps() {
+
+    InitPropertySet("ro.boot.flash.locked", "1");
+    InitPropertySet("ro.boot.vbmeta.device_state", "locked");
+    InitPropertySet("ro.boot.verifiedbootstate", "green");
+    InitPropertySet("ro.boot.veritymode", "enforcing");
+    InitPropertySet("ro.boot.warranty_bit", "0");
+    InitPropertySet("ro.warranty_bit", "0");
+    InitPropertySet("ro.debuggable", "0");
+    InitPropertySet("ro.secure", "1");
+    InitPropertySet("ro.build.type", "user");
+    InitPropertySet("ro.build.keys", "release-keys");
+    InitPropertySet("ro.build.tags", "release-keys");
+    InitPropertySet("ro.system.build.tags", "release-keys");
+    InitPropertySet("ro.vendor.boot.warranty_bit", "0");
+    InitPropertySet("ro.vendor.warranty_bit", "0");
+    InitPropertySet("vendor.boot.vbmeta.device_state", "locked");
+    InitPropertySet("vendor.boot.verifiedbootstate", "green");
+
+}
+
+>>>>>>> 7aac6fc496 (init: Add more properties to spoof.)
 void PropertyInit() {
     selinux_callback cb;
     cb.func_audit = PropertyAuditCallback;
